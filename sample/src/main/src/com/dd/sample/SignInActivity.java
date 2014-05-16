@@ -62,8 +62,8 @@ public class SignInActivity extends Activity implements
 
 	@Override
 	public void onError() {
-		btnSignIn.setErrorStatus(true);
-
+		Toast.makeText(this, R.string.Error, Toast.LENGTH_LONG)
+		.show();
 	}
 
 }
