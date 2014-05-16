@@ -32,4 +32,10 @@ public class UploadActivity extends Activity implements ProgressGenerator.OnComp
     public void onComplete() {
         Toast.makeText(this, R.string.Loading_Complete, Toast.LENGTH_LONG).show();
     }
+
+	@Override
+	public void onError() {
+		// TODO Auto-generated method stub
+		
+	}
 }

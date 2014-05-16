@@ -3,13 +3,20 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_marginLeft="32dp"
-    android:layout_marginRight="32dp">
+    android:layout_marginRight="32dp" >
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical" >
+
+        <CheckBox
+            android:id="@+id/cbErrorStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/error_status" />
 
         <EditText
             android:id="@+id/editEmail"
@@ -40,8 +47,8 @@
             custom:colorPressed="@color/blue_pressed"
             custom:colorProgress="@color/purple_progress"
             custom:completeText="@string/Success"
-            custom:progressText="@string/Loading" />
-
+            custom:progressText="@string/Loading"
+            custom:errorText="@string/Error" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -36,4 +36,10 @@ public class MessageActivity extends Activity implements ProgressGenerator.OnCom
         Toast.makeText(this, R.string.Loading_Complete, Toast.LENGTH_LONG).show();
     }
 
+	@Override
+	public void onError() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
