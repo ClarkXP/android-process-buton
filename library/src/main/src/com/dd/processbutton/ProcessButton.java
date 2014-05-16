@@ -13,13 +13,16 @@ public abstract class ProcessButton extends FlatButton {
     private int mMaxProgress;
     private int mMinProgress;
 
-    private boolean mIsLoadingComplete;
+    private boolean mIsLoadingComplete,mIsErrorStatus;
 
     private GradientDrawable mProgressDrawable;
     private GradientDrawable mCompleteDrawable;
+    private GradientDrawable mErrorDrawable;
 
     private CharSequence mLoadingText;
     private CharSequence mCompleteText;
+    private CharSequence mErrorText;
+    private CharSequence mDefaultText;
 
     public ProcessButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -44,7 +47,8 @@ public abstract class ProcessButton extends FlatButton {
                 (GradientDrawable) getGradientDrawable(R.drawable.rect_progress).mutate();
         mCompleteDrawable =
                 (GradientDrawable) getGradientDrawable(R.drawable.rect_complete).mutate();
-
+        mErrorDrawable=
+        		(GradientDrawable) getGradientDrawable(R.drawable.rect_error).mutate();
         if (attrs != null) {
             initAttributes(context, attrs);
         }
@@ -58,15 +62,21 @@ public abstract class ProcessButton extends FlatButton {
         }
 
         try {
+        	mDefaultText = getText();
             mLoadingText = attr.getString(R.styleable.ProcessButton_progressText);
             mCompleteText = attr.getString(R.styleable.ProcessButton_completeText);
-
+            mErrorText = attr.getString(R.styleable.ProcessButton_errorText);
+            
             if (attr.hasValue(R.styleable.ProcessButton_colorProgress)) {
                 mProgressDrawable.setColor(getColor(attr, R.styleable.ProcessButton_colorProgress));
             }
 
             if (attr.hasValue(R.styleable.ProcessButton_colorComplete)) {
                 mCompleteDrawable.setColor(getColor(attr, R.styleable.ProcessButton_colorComplete));
+            }
+            
+            if (attr.hasValue(R.styleable.ProcessButton_colorError)) {
+                mErrorDrawable.setColor(getColor(attr, R.styleable.ProcessButton_colorError));
             }
 
         } finally {
@@ -100,6 +110,16 @@ public abstract class ProcessButton extends FlatButton {
             setBackgroundDrawable(getCompleteDrawable());
         }
     }
+    
+    protected void onError() {
+    	if (getErrorText() != null) {
+            setText(getErrorText());
+        }
+
+        if (getErrorDrawable() != null) {
+            setBackgroundDrawable(getErrorDrawable());
+        }
+	}
 
     public int getProgress() {
         return mProgress;
@@ -116,6 +136,14 @@ public abstract class ProcessButton extends FlatButton {
     public boolean isLoadingComplete() {
         return mIsLoadingComplete;
     }
+    
+    public boolean isErrorStatus() {
+    	return mIsErrorStatus;
+    }
+    
+    public void setErrorStatus(boolean error) {
+    	mIsErrorStatus=error;
+    }
 
     public GradientDrawable getProgressDrawable() {
         return mProgressDrawable;
@@ -123,6 +151,10 @@ public abstract class ProcessButton extends FlatButton {
 
     public GradientDrawable getCompleteDrawable() {
         return mCompleteDrawable;
+    }
+    
+    public GradientDrawable getErrorDrawable() {
+    	return mErrorDrawable;
     }
 
     public CharSequence getLoadingText() {
@@ -132,6 +164,10 @@ public abstract class ProcessButton extends FlatButton {
     public CharSequence getCompleteText() {
         return mCompleteText;
     }
+    
+    public CharSequence getErrorText() {
+		return mErrorText;
+	}
 
     public void setProgressDrawable(GradientDrawable progressDrawable) {
         mProgressDrawable = progressDrawable;
@@ -141,12 +177,20 @@ public abstract class ProcessButton extends FlatButton {
         mCompleteDrawable = completeDrawable;
     }
 
-    public void setLoadingText(CharSequence loadingText) {
+    public void setErrorDrawable(GradientDrawable errorDrawable) {
+		mErrorDrawable = errorDrawable;
+	}
+
+	public void setLoadingText(CharSequence loadingText) {
         mLoadingText = loadingText;
     }
 
     public void setCompleteText(CharSequence completeText) {
         mCompleteText = completeText;
+    }
+    
+    public void setErrorText(CharSequence errorText) {
+    	mErrorText=errorText;
     }
 
 
